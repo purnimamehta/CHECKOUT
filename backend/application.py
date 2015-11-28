@@ -7,15 +7,26 @@ client = Client(API_KEY)
 
 app = Flask(__name__)
 
-@app.route('/store', methods = ['GET', 'POST'])
-def store():
+@app.route('/price', methods = ['GET', 'POST'])
+def price():
 	 store = request.args.get('store')
-	 return str(store)
+	 upc_code = request.args.get('upc')
+	 result = 'No Product In Database'
+	 response = client.get('stores',store)
+	 if(upc_code in response['upc']):
+	 	result =  str(response['upc'][upc_code]['price']) 
+	 return result
 
-@app.route('/upc', methods = ['GET', 'POST'])
-def upc():
-	 name = request.args.get('upc')
-	 return str(name)
+@app.route('/name', methods = ['GET', 'POST'])
+def name():
+	 store = request.args.get('store')
+	 upc_code = request.args.get('upc')
+	 result = 'No Product In Database'
+	 response = client.get('stores',store)
+	 if(upc_code in response['upc']):
+	 	result =  str(response['upc'][upc_code]['name']) 
+	 return result
+
 
 @app.route('/user', methods = ['GET', 'POST'])
 def user():
@@ -36,3 +47,4 @@ def user():
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')
+
