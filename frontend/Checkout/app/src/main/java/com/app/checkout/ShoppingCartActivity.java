@@ -28,6 +28,14 @@ public class ShoppingCartActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String tempBarCode;
+            tempBarCode = extras.getString("barcode");
+            Log.d("Test barcode passing", tempBarCode);
+        } else {
+            Log.d("Test barcode passing", "extras are null!");
+        }
 
     }
 
