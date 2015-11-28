@@ -48,3 +48,23 @@ def user():
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')
 
+<<<<<<< HEAD
+=======
+
+'''
+user account information in orchestrate database
+
+spicy@google.com
+rarepepes
+
+mary@apple.com
+1234
+
+helloworld@gmail.com
+fakepassword
+
+moredankness@yahoo.com
+huehuehue
+
+'''
+>>>>>>> b35cda59ac9a44f98eaca09137556b5bddfd163a
