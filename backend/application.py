@@ -17,5 +17,8 @@ def store():
 	 password = request.args.get('password')
 	 return str(name) + " " + str(password)
 
+
+
+
 if __name__ == '__main__':
     app.run()
