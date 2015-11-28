@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+
 
 public class BarCodeActivity extends ActionBarActivity {
 
@@ -12,6 +16,12 @@ public class BarCodeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_code);
     }
+
+    public void scanBarcode(View view) {
+        new IntentIntegrator(this).initiateScan();
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
