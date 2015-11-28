@@ -53,6 +53,8 @@ public class LoginAccountActivity extends ActionBarActivity implements LoaderCal
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+    private static final String REQUEST_BACKEND = "http://ec2-52-27-64-11.us-west-2.compute.amazonaws.com:5000/";
+    private static final String REQUEST_BACKEND_USER = "http://ec2-52-27-64-11.us-west-2.compute.amazonaws.com:5000/user?";
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -94,6 +96,10 @@ public class LoginAccountActivity extends ActionBarActivity implements LoaderCal
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private String constructRequestWithUsernameAndPassword(String originalRequest, String username, String password) {
+        return originalRequest + "username=" + username + "&password=" + password;
     }
 
     private void populateAutoComplete() {
@@ -156,7 +162,7 @@ public class LoginAccountActivity extends ActionBarActivity implements LoaderCal
 
 
             Log.d("DEBUG --", "Before mAuthTask.execute");
-            mAuthTask.execute("http://ec2-52-27-64-11.us-west-2.compute.amazonaws.com:5000/upc?upc=10000000");
+            mAuthTask.execute(constructRequestWithUsernameAndPassword(REQUEST_BACKEND_USER, email, password));
         }
     }
 
@@ -167,7 +173,7 @@ public class LoginAccountActivity extends ActionBarActivity implements LoaderCal
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
@@ -279,20 +285,23 @@ public class LoginAccountActivity extends ActionBarActivity implements LoaderCal
 
             try {
                 HttpClient httpclient = new DefaultHttpClient();
+                Log.d("HTTP Client Testing", "About the execute HTTP Request.");
+                Log.d("Before HttpGet", "uri is: " + uri[0]);
                 HttpResponse response = httpclient.execute(new HttpGet(uri[0]));
                 StatusLine statusLine = response.getStatusLine();
-                if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                response.getEntity().writeTo(out);
+                String responseString = out.toString();
+                Log.d("Response String", responseString);
+                if(statusLine.getStatusCode() == HttpStatus.SC_OK && responseString.equals("True") ){
                     Log.d("TaskSuccess", "Connection OKAY!");
-                    ByteArrayOutputStream out = new ByteArrayOutputStream();
-                    response.getEntity().writeTo(out);
-                    String responseString = out.toString();
-                    Log.d("HttpResponseString", responseString);
                     out.close();
                     //..more logic
                 } else{
                     //Closes the connection.
-                    Log.d("TaskFailed", "Connection NOT good...");
+                    Log.d("TaskFailed", "Connection NOT good or wrong ...");
                     response.getEntity().getContent().close();
+                    out.close();
                     throw new IOException(statusLine.getReasonPhrase());
                 }
             } catch (ClientProtocolException e) {
@@ -301,14 +310,14 @@ public class LoginAccountActivity extends ActionBarActivity implements LoaderCal
                 //TODO Handle problems..
             }
 
-            Log.d("DEBUG", "Before checking Dummy Credentials");
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+//            Log.d("DEBUG", "Before checking Dummy Credentials");
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
 
             Log.d("DEBUG", "Before returning true at the end of doInBackground");
             // TODO: register the new account here.
