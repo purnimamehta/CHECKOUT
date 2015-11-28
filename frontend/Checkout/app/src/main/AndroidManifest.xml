@@ -24,21 +24,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AnyOrientationCaptureActivity" 
+            android:name=".AnyOrientationCaptureActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity
             android:name=".BarCodeActivity"
-            android:label="@string/app_name">
-
-        </activity>
-
-
-
-
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:label="@string/title_activity_shopping_cart"></activity>
     </application>
 
 </manifest>
