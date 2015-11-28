@@ -3,21 +3,16 @@ package com.app.checkout;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-/* ********************************************************************
-    @Author: Sagar                 @Date: 2015 - 11 - 28
-    *Class to handle all Barcode Scanning
- * ********************************************************************/
 
 public class BarCodeActivity extends ActionBarActivity {
-    private String barcode; // Variable to hold inputted barcode scan
+    private String barcode = ""; // Variable to hold inputted barcode scan
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +26,10 @@ public class BarCodeActivity extends ActionBarActivity {
         integrator.setOrientationLocked(false); // Scanning can be done in any orientation
         integrator.setBeepEnabled(false);
         integrator.initiateScan();
-    }
 
-    public void scanBarcode(View view) {
-        new IntentIntegrator(this).initiateScan();
-    }
-    // TODO: Get rid of method after success in connecting to ShoppingCartActivity
-    public void scanBarcodeCustomLayout(View view) {
 
     }
+
 
 
     @Override
@@ -47,7 +37,7 @@ public class BarCodeActivity extends ActionBarActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         barcode = result.getContents(); // Store scanned value here
         // Code for sending barcode variable to ShoppingCartActivity
-        Intent intent = new Intent(getApplicationContext(), ShoppingCartActivity.class); // create new Intent for sending to ShoppingCartActivity
+        intent = new Intent(getApplicationContext(), ShoppingCartActivity.class); // create new Intent for sending to ShoppingCartActivity
         intent.putExtra("barcode", barcode); // Add barcode variable to 'extra' in the Intent
         startActivity(intent);
 
@@ -98,4 +88,10 @@ public class BarCodeActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(intent);
+    }
+
+
 }

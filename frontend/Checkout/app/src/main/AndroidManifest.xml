@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginAccountActivity"
-            android:label="@string/title_activity_login_account">
+            android:label="CheckOut">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
