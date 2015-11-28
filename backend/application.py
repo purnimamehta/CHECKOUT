@@ -1,4 +1,4 @@
-from flask import Flask, render_template,g,request
+from flask import Flask,request
 app = Flask(__name__)
 
 @app.route('/store', methods = ['GET', 'POST'])
@@ -12,7 +12,7 @@ def upc():
 	 return str(name)
 
 @app.route('/user', methods = ['GET', 'POST'])
-def store():
+def user():
 	 username = request.args.get('username')
 	 password = request.args.get('password')
 	 return str(name) + " " + str(password)
