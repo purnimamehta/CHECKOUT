@@ -32,7 +32,12 @@ public class ShoppingCartActivity extends ActionBarActivity {
         if (extras != null) {
             String tempBarCode;
             tempBarCode = extras.getString("barcode");
-            Log.d("Test barcode passing", tempBarCode);
+            if (tempBarCode != null) {
+                Log.d("Test barcode passing", tempBarCode);
+            } else {
+                Log.d("Test barcode passing", "tempBarCode was null!");
+            }
+
         } else {
             Log.d("Test barcode passing", "extras are null!");
         }
@@ -85,7 +90,7 @@ public class ShoppingCartActivity extends ActionBarActivity {
 
         @Override
         protected Boolean doInBackground(String... uri) {
-            //Not done yet
+
             try {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response = httpclient.execute(new HttpGet(uri[0]));
