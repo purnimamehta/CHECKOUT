@@ -16,20 +16,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginAccountActivity"
-            android:label="@string/title_activity_login_account"
-            android:name=".AnyOrientationCaptureActivity" 
-            android:screenOrientation="fullSensor"
-            android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:name=".BarCodeActivity"
-            android:label="@string/app_name" />
+            android:label="@string/title_activity_login_account">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AnyOrientationCaptureActivity" 
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".BarCodeActivity"
+            android:label="@string/app_name">
+
+        </activity>
+
 
 
 
