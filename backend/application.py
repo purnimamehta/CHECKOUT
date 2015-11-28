@@ -1,7 +1,9 @@
 from flask import Flask,request
-import porc
-
+from porc import Client
 API_KEY = '16509990-f7fc-48dc-b128-716c99b65a24'
+client = Client(API_KEY)
+
+
 
 app = Flask(__name__)
 
@@ -19,15 +21,15 @@ def upc():
 def user():
 	 username = request.args.get('username')
 	 password = request.args.get('password')
-	 result = 'False'
+	 
+	 result = False
 
 	 users_check = client.get('users',username)
 
-	 if(len(users_check)>0 and users_check['password'] == password):
-	 	result = 'True'
+	 if(users_check['email'] == username and users_check['password'] == password):
+	 	result = True
 
-
-	 return result
+	 return str(result)
 
 
 
