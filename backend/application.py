@@ -1,5 +1,12 @@
 from flask import Flask,request
 from porc import Client
+
+import braintree
+
+braintree.Configuration.configure(braintree.Environment.Sandbox,merchant_id="bmzy35jyg4ky63ny",public_key="zq4xhvc2g4qzbhzx",private_key="24c035ddae636bd41cc793cf0cf205f3")
+
+
+
 API_KEY = '16509990-f7fc-48dc-b128-716c99b65a24'
 client = Client(API_KEY)
 
@@ -42,8 +49,16 @@ def user():
 
 	 return str(result)
 
+@app.route("/client_token", methods=["GET"])
+def client_token():
+  return braintree.ClientToken.generate()
 
 
+@app.route("/checkout", methods=["GET"])
+def create_purchase():
+	price = request.args.get('price')
+	result = braintree.Transaction.sale({"amount": price,"payment_method_nonce": "fake-valid-nonce"})
+	return str(result)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')
