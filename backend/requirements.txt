@@ -1,0 +1,11 @@
+braintree==3.23.0
+Flask==0.10.1
+futures==3.0.3
+itsdangerous==0.24
+Jinja2==2.8
+lucene-querybuilder==0.2
+MarkupSafe==0.23
+porc==0.5.4
+requests==2.9.1
+requests-futures==0.9.5
+Werkzeug==0.11.2
