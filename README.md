@@ -1,8 +1,9 @@
 # CHECKOUT
-### Hack Western Android Application
+Hack Western Android Application
 
-## Team Members: Purnima Mehta, James Pang, Ansaf Ahmad, Sagar Thomas
+Team Members: Purnima Mehta, James Pang, Ansaf Ahmad, Sagar Thomas
 
+## Description
 Shopping during the holiday reason can be a nightmare with long checkout lines. 
 Easily skip those lines now using CHECKOUT. Scan and pay with your phone, show the receipt when you leave and its as seamless as that.
 
